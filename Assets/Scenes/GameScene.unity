@@ -288,6 +288,7 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   mouseWorld: {fileID: 58726744}
+  unit: {fileID: 409723818}
 --- !u!4 &187676010
 Transform:
   m_ObjectHideFlags: 0

@@ -1,8 +1,17 @@
 using UnityEngine;
+using VContainer;
 
 public class Unit : MonoBehaviour
 {
     private Vector3 targetPosition;
+
+    private MouseWorld mouseWorld;
+
+    [Inject]
+    private void Construct(MouseWorld mouseWorld)
+    {
+        this.mouseWorld = mouseWorld;
+    }
 
     private void Update()
     {
@@ -15,9 +24,9 @@ public class Unit : MonoBehaviour
         }
         
         
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetMouseButtonDown(0))
         {
-            Move(new Vector3(4, 0, 4));
+            Move(mouseWorld.GetPosition());
         }
     }
 
