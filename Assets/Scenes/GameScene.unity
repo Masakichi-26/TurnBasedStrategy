@@ -286,9 +286,9 @@ MonoBehaviour:
   parentReference:
     TypeName: 
   autoRun: 1
-  autoInjectGameObjects: []
+  autoInjectGameObjects:
+  - {fileID: 409723816}
   mouseWorld: {fileID: 58726744}
-  unit: {fileID: 409723818}
 --- !u!4 &187676010
 Transform:
   m_ObjectHideFlags: 0
