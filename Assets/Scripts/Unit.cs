@@ -3,6 +3,9 @@ using VContainer;
 
 public class Unit : MonoBehaviour
 {
+    [SerializeField]
+    private Animator unitAnimator;
+
     private Vector3 targetPosition;
 
     private MouseWorld mouseWorld;
@@ -21,6 +24,12 @@ public class Unit : MonoBehaviour
             Vector3 direction = (targetPosition - transform.position).normalized;
             float moveSpeed = 4f;
             transform.position += direction * moveSpeed * Time.deltaTime;
+            
+            unitAnimator.SetBool("IsWalking", true);
+        }
+        else
+        {
+            unitAnimator.SetBool("IsWalking", false);
         }
         
         
