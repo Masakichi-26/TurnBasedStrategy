@@ -1,5 +1,4 @@
 using UnityEngine;
-using VContainer;
 
 public class Unit : MonoBehaviour
 {
@@ -8,12 +7,9 @@ public class Unit : MonoBehaviour
 
     private Vector3 targetPosition;
 
-    private MouseWorld mouseWorld;
-
-    [Inject]
-    private void Construct(MouseWorld mouseWorld)
+    private void Awake()
     {
-        this.mouseWorld = mouseWorld;
+        targetPosition = transform.position;
     }
 
     private void Update()
@@ -34,15 +30,9 @@ public class Unit : MonoBehaviour
         {
             unitAnimator.SetBool("IsWalking", false);
         }
-        
-        
-        if (Input.GetMouseButtonDown(0))
-        {
-            Move(mouseWorld.GetPosition());
-        }
     }
 
-    private void Move(Vector3 targetPosition)
+    public void Move(Vector3 targetPosition)
     {
         this.targetPosition = targetPosition;
     }
