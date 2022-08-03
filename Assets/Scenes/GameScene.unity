@@ -287,8 +287,11 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects:
-  - {fileID: 266761111}
+  - {fileID: 648254030}
+  - {fileID: 482479679}
   mouseWorld: {fileID: 58726744}
+  unitActionSystem: {fileID: 266761112}
+  UnitSelectedVisual: {fileID: 648254032}
 --- !u!4 &187676010
 Transform:
   m_ObjectHideFlags: 0
@@ -302,7 +305,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &266761111
 GameObject:
@@ -350,7 +353,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &330585543
 GameObject:
@@ -668,6 +671,12 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ed986fce539f6642b345bfc2d2deece, type: 3}
+--- !u!1 &482479679 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2768984775401890018, guid: 8ed986fce539f6642b345bfc2d2deece,
+    type: 3}
+  m_PrefabInstance: {fileID: 455912056}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &515582380
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,6 +775,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &648254030 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2768984775401890018, guid: 8ed986fce539f6642b345bfc2d2deece,
+    type: 3}
+  m_PrefabInstance: {fileID: 4424284702469937685}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &648254032 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4894648944542537524, guid: 8ed986fce539f6642b345bfc2d2deece,
+    type: 3}
+  m_PrefabInstance: {fileID: 4424284702469937685}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648254030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca6be26e534525b4584285870ec127e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 using VContainer;
 
 public class UnitActionSystem : MonoBehaviour
 {
+    public event EventHandler OnSelectedUnitChanged;
+
     [SerializeField] private Unit selectedUnit;
 
     [SerializeField] private LayerMask unitLayerMask;
@@ -13,6 +16,7 @@ public class UnitActionSystem : MonoBehaviour
     private void Construct(MouseWorld mouseWorld)
     {
         this.mouseWorld = mouseWorld;
+        Debug.Log("injecting mouseWorld");
     }
 
     private void Update()
@@ -37,7 +41,18 @@ public class UnitActionSystem : MonoBehaviour
             return false;
         }
 
-        selectedUnit = unit;
+        SetSelectedUnit(unit);
         return true;
+    }
+
+    private void SetSelectedUnit(Unit unit)
+    {
+        selectedUnit = unit;
+        OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public Unit GetSelectedUnit()
+    {
+        return selectedUnit;
     }
 }
