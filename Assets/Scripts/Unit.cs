@@ -1,4 +1,5 @@
 using UnityEngine;
+using VContainer;
 
 public class Unit : MonoBehaviour
 {
@@ -7,9 +8,26 @@ public class Unit : MonoBehaviour
 
     private Vector3 targetPosition;
 
+    private LevelGrid levelGrid;
+
+    private GridPosition gridPosition;
+
+    [Inject]
+    private void Construct(LevelGrid levelGrid)
+    {
+        this.levelGrid = levelGrid;
+        Debug.Log("injecting levelGrid");
+    }
+
     private void Awake()
     {
         targetPosition = transform.position;
+    }
+
+    private void Start()
+    {
+        gridPosition = levelGrid.GetGridPosition(transform.position);
+        levelGrid.AddUnitAtGridPosition(gridPosition, this);
     }
 
     private void Update()
@@ -29,6 +47,13 @@ public class Unit : MonoBehaviour
         else
         {
             unitAnimator.SetBool("IsWalking", false);
+        }
+
+        GridPosition newGridPosition = levelGrid.GetGridPosition(transform.position);
+        if (newGridPosition != gridPosition)
+        {
+            levelGrid.UnitMoveGridPosition(this, gridPosition, newGridPosition);
+            gridPosition = newGridPosition;
         }
     }
 
