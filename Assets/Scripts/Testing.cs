@@ -9,6 +9,8 @@ public class Testing : MonoBehaviour
 
     private MouseWorld mouseWorld;
 
+    [SerializeField] private Unit unit;
+
     [Inject]
     private void Construct(MouseWorld mouseWorld)
     {
@@ -22,6 +24,9 @@ public class Testing : MonoBehaviour
 
     private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            unit.GetMoveAction().GetValidActionGridPositionList();
+        }
     }
 }

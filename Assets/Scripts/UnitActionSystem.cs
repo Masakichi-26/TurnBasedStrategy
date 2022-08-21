@@ -12,11 +12,13 @@ public class UnitActionSystem : MonoBehaviour
 
     private MouseWorld mouseWorld;
 
+    private LevelGrid levelGrid;
+
     [Inject]
-    private void Construct(MouseWorld mouseWorld)
+    private void Construct(MouseWorld mouseWorld, LevelGrid levelGrid)
     {
         this.mouseWorld = mouseWorld;
-        Debug.Log("injecting mouseWorld");
+        this.levelGrid  = levelGrid;
     }
 
     private void Update()
@@ -24,7 +26,14 @@ public class UnitActionSystem : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             if (TryHandleUnitSelection()) return;
-            selectedUnit.GetMoveAction().Move(mouseWorld.GetPosition());
+
+            GridPosition mouseGridPosition = levelGrid.GetGridPosition(mouseWorld.GetPosition());
+            MoveAction unitMoveAction = selectedUnit.GetMoveAction();
+            
+            if (unitMoveAction.IsValidActionGridPosition(mouseGridPosition))
+            {
+                unitMoveAction.Move(mouseGridPosition);
+            }
         }
     }
 

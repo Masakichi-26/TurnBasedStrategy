@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using VContainer;
 
 public class MoveAction : MonoBehaviour
 {
@@ -7,6 +8,13 @@ public class MoveAction : MonoBehaviour
     [SerializeField] private int maxMoveDistance = 4;
     [SerializeField] private Unit unit;
     private Vector3 targetPosition;
+    private LevelGrid levelGrid;
+
+    [Inject]
+    private void Construct(LevelGrid levelGrid)
+    {
+        this.levelGrid = levelGrid;
+    }
     
     private void Awake()
     {
@@ -33,9 +41,15 @@ public class MoveAction : MonoBehaviour
         }
     }
 
-    public void Move(Vector3 targetPosition)
+    public void Move(GridPosition gridPosition)
     {
-        this.targetPosition = targetPosition;
+        this.targetPosition = levelGrid.GetWorldPosition(gridPosition);
+    }
+
+    public bool IsValidActionGridPosition(GridPosition gridPosition)
+    {
+        List<GridPosition> validGridPositionList = GetValidActionGridPositionList();
+        return validGridPositionList.Contains(gridPosition);
     }
 
     public List<GridPosition> GetValidActionGridPositionList()
@@ -50,7 +64,23 @@ public class MoveAction : MonoBehaviour
             {
                 GridPosition offsetGridPosition = new GridPosition(x, z);
                 GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
-                Debug.Log(testGridPosition);
+                
+                if (levelGrid.IsValidGridPosition(testGridPosition) == false)
+                {
+                    continue;
+                }
+
+                if (unitGridPosition == testGridPosition)
+                {
+                    continue;
+                }
+
+                if (levelGrid.HasAnyUnitOnGridPosition(testGridPosition))
+                {
+                    continue;
+                }
+
+                validGridPositionList.Add(testGridPosition);
             }
         }
 
