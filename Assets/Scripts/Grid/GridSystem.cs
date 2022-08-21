@@ -22,7 +22,6 @@ public class GridSystem
                 gridObjectArray[x, z] = new GridObject(this, gridPosition);
             }
         }
-        
     }
 
     public Vector3 GetWorldPosition(GridPosition gridPosition)
@@ -64,5 +63,15 @@ public class GridSystem
                 gridPosition.z >= 0 &&
                 gridPosition.x < width &&
                 gridPosition.z < height;
+    }
+
+    public int GetWidth()
+    {
+        return width;
+    }
+
+    public int GetHeight()
+    {
+        return height;
     }
 }

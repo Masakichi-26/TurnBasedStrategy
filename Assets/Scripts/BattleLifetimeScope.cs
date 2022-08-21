@@ -7,11 +7,13 @@ public class BattleLifetimeScope : LifetimeScope
     [SerializeField] private MouseWorld mouseWorld;
     [SerializeField] private UnitActionSystem unitActionSystem;
     [SerializeField] private LevelGrid levelGrid;
+    [SerializeField] private GridSystemVisual gridSystemVisual;
 
     protected override void Configure(IContainerBuilder builder)
     {
         builder.RegisterComponent(mouseWorld);
         builder.RegisterComponent(unitActionSystem);
         builder.RegisterComponent(levelGrid);
+        builder.RegisterComponent(gridSystemVisual);
     }
 }

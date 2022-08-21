@@ -5,16 +5,19 @@ public class Testing : MonoBehaviour
 {
     [SerializeField] private Transform gridDebugObjectPrefab;
 
+    [SerializeField] private Unit unit;
+
     private GridSystem gridSystem;
 
     private MouseWorld mouseWorld;
 
-    [SerializeField] private Unit unit;
+    private GridSystemVisual gridSystemVisual;
 
     [Inject]
-    private void Construct(MouseWorld mouseWorld)
+    private void Construct(MouseWorld mouseWorld, GridSystemVisual gridSystemVisual)
     {
-        this.mouseWorld = mouseWorld;
+        this.mouseWorld       = mouseWorld;
+        this.gridSystemVisual = gridSystemVisual;
     }
 
     private void Start()
@@ -26,7 +29,7 @@ public class Testing : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            unit.GetMoveAction().GetValidActionGridPositionList();
+            
         }
     }
 }
