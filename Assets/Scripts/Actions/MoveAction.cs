@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using VContainer;
 
-public class MoveAction : MonoBehaviour
+public class MoveAction : BaseAction
 {
     [SerializeField] private Animator unitAnimator;
     [SerializeField] private int maxMoveDistance = 4;
-    [SerializeField] private Unit unit;
+
     private Vector3 targetPosition;
     private LevelGrid levelGrid;
 
@@ -23,27 +23,35 @@ public class MoveAction : MonoBehaviour
 
     private void Update()
     {
+        if (isActive is false)
+        {
+            return;
+        }
+
+        Vector3 direction = (targetPosition - transform.position).normalized;
+
         float stoppingDistance = 0.01f;
         if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
         {
-            Vector3 direction = (targetPosition - transform.position).normalized;
             float moveSpeed = 6f;
             transform.position += direction * moveSpeed * Time.deltaTime;
 
-            float rotateSpeed = 10f;
-            transform.forward = Vector3.Lerp(transform.forward, direction, Time.deltaTime * rotateSpeed);
-            
             unitAnimator.SetBool("IsWalking", true);
         }
         else
         {
             unitAnimator.SetBool("IsWalking", false);
+            isActive = false;
         }
+
+        float rotateSpeed = 10f;
+        transform.forward = Vector3.Lerp(transform.forward, direction, Time.deltaTime * rotateSpeed);
     }
 
     public void Move(GridPosition gridPosition)
     {
         this.targetPosition = levelGrid.GetWorldPosition(gridPosition);
+        isActive = true;
     }
 
     public bool IsValidActionGridPosition(GridPosition gridPosition)
