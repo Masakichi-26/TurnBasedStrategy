@@ -14,6 +14,8 @@ public class UnitActionSystem : MonoBehaviour
 
     private LevelGrid levelGrid;
 
+    private bool isBusy;
+
     [Inject]
     private void Construct(MouseWorld mouseWorld, LevelGrid levelGrid)
     {
@@ -23,6 +25,11 @@ public class UnitActionSystem : MonoBehaviour
 
     private void Update()
     {
+        if (isBusy)
+        {
+            return;
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             if (TryHandleUnitSelection()) return;
@@ -32,14 +39,26 @@ public class UnitActionSystem : MonoBehaviour
             
             if (unitMoveAction.IsValidActionGridPosition(mouseGridPosition))
             {
-                unitMoveAction.Move(mouseGridPosition);
+                SetBusy();
+                unitMoveAction.Move(mouseGridPosition, ClearBusy);
             }
         }
 
         if (Input.GetMouseButtonDown(1))
         {
-            selectedUnit.GetSpinAction().Spin();
+            SetBusy();
+            selectedUnit.GetSpinAction().Spin(ClearBusy);
         }
+    }
+
+    private void SetBusy()
+    {
+        isBusy = true;
+    }
+
+    private void ClearBusy()
+    {
+        isBusy = false;
     }
 
     private bool TryHandleUnitSelection()

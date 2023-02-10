@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class BaseAction : MonoBehaviour
@@ -5,4 +6,5 @@ public abstract class BaseAction : MonoBehaviour
     [SerializeField] protected Unit unit;
 
     protected bool isActive;
+    protected Action onActionComplete;
 }
