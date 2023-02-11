@@ -5,6 +5,7 @@ public class Unit : MonoBehaviour
 {
     [SerializeField] private MoveAction moveAction;
     [SerializeField] private SpinAction spinAction;
+    [SerializeField] private BaseAction[] baseActionArray;
 
     private LevelGrid levelGrid;
 
@@ -45,5 +46,10 @@ public class Unit : MonoBehaviour
     public GridPosition GetGridPosition()
     {
         return gridPosition;
+    }
+
+    public BaseAction[] GetBaseActionArray()
+    {
+        return baseActionArray;
     }
 }

@@ -149,6 +149,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveAction: {fileID: 9147219470036866006}
   spinAction: {fileID: 820886982490712017}
+  baseActionArray:
+  - {fileID: 9147219470036866006}
+  - {fileID: 820886982490712017}
 --- !u!65 &2687570901468654748
 BoxCollider:
   m_ObjectHideFlags: 0
