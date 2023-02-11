@@ -6,6 +6,7 @@ using VContainer;
 public class UnitActionSystem : MonoBehaviour
 {
     public event EventHandler OnSelectedUnitChanged;
+    public event EventHandler OnSelectedActionChanged;
 
     [SerializeField] private Unit selectedUnit;
 
@@ -94,7 +95,7 @@ public class UnitActionSystem : MonoBehaviour
             {
                 return false;
             }
-            
+
             SetSelectedUnit(unit);
             return true;
         }
@@ -112,6 +113,7 @@ public class UnitActionSystem : MonoBehaviour
     public void SetSelectedAction(BaseAction action)
     {
         selectedAction = action;
+        OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public Unit GetSelectedUnit()
