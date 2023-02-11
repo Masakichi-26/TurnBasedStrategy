@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 using VContainer;
 
 public class UnitActionSystemUI : MonoBehaviour
@@ -14,7 +13,7 @@ public class UnitActionSystemUI : MonoBehaviour
     private void Construct(UnitActionSystem unitActionSystem)
     {
         this.unitActionSystem = unitActionSystem;
-        Debug.Log("injecting unitActionSystem");
+        Debug.Log("injecting UnitActionSystem into UnitActionSystemUI");
     }
 
     private void Start()
@@ -36,7 +35,7 @@ public class UnitActionSystemUI : MonoBehaviour
         {
             Transform actionButton = Instantiate(actionButtonPrefab, actionButtonContainerTransform);
             var actionButtonUI = actionButton.GetComponent<ActionButtonUI>();
-            actionButtonUI.SetBaseAction(baseAction);
+            actionButtonUI.SetBaseAction(baseAction, unitActionSystem);
         }
     }
 
