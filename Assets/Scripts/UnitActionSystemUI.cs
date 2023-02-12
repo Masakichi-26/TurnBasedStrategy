@@ -7,6 +7,7 @@ public class UnitActionSystemUI : MonoBehaviour
 {
     [SerializeField] private Transform actionButtonPrefab;
     [SerializeField] private Transform actionButtonContainerTransform;
+    [SerializeField] private ActionBusyUI actionBusyUI;
 
     private UnitActionSystem unitActionSystem;
 
