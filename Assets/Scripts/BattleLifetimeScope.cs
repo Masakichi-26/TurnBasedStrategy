@@ -8,6 +8,7 @@ public class BattleLifetimeScope : LifetimeScope
     [SerializeField] private UnitActionSystem unitActionSystem;
     [SerializeField] private LevelGrid levelGrid;
     [SerializeField] private GridSystemVisual gridSystemVisual;
+    [SerializeField] private TurnSystem turnSystem;
 
     protected override void Configure(IContainerBuilder builder)
     {
@@ -15,5 +16,6 @@ public class BattleLifetimeScope : LifetimeScope
         builder.RegisterComponent(unitActionSystem);
         builder.RegisterComponent(levelGrid);
         builder.RegisterComponent(gridSystemVisual);
+        builder.RegisterComponent(turnSystem);
     }
 }

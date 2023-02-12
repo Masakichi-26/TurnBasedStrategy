@@ -11,14 +11,16 @@ public class UnitActionSystemUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI actionPointsText;
 
     private UnitActionSystem unitActionSystem;
-
+    private TurnSystem turnSystem;
     private List<ActionButtonUI> actionButtonUIList = new();
 
     [Inject]
-    private void Construct(UnitActionSystem unitActionSystem)
+    private void Construct(UnitActionSystem unitActionSystem, TurnSystem turnSystem)
     {
         this.unitActionSystem = unitActionSystem;
+        this.turnSystem = turnSystem;
         Debug.Log("injecting UnitActionSystem into UnitActionSystemUI");
+        Debug.Log("injecting TurnSystem into UnitActionSystemUI");
     }
 
     private void Start()
@@ -26,6 +28,9 @@ public class UnitActionSystemUI : MonoBehaviour
         unitActionSystem.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
         unitActionSystem.OnSelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
         unitActionSystem.OnActionStarted += UnitActionSystem_OnActionStarted;
+        turnSystem.OnTurnChanged += TurnSystem_OnTurnChanged;
+        Unit.OnAnyActionPointsChanged += Unit_OnAnyActionPointsChanged;
+
         UpdateActionPoints();
         CreateUnitActionButtons();
     }
@@ -65,6 +70,16 @@ public class UnitActionSystemUI : MonoBehaviour
     }
 
     private void UnitActionSystem_OnActionStarted(object sender, EventArgs e)
+    {
+        UpdateActionPoints();
+    }
+
+    private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
+    {
+        UpdateActionPoints();
+    }
+
+    private void Unit_OnAnyActionPointsChanged(object sender, EventArgs e)
     {
         UpdateActionPoints();
     }

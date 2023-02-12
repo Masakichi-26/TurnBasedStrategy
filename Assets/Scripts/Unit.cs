@@ -1,28 +1,38 @@
+using System;
 using UnityEngine;
 using VContainer;
 
 public class Unit : MonoBehaviour
 {
+    private const int ACTION_POINTS_MAX = 2;
+
+    public static event EventHandler OnAnyActionPointsChanged;
+
     [SerializeField] private MoveAction moveAction;
     [SerializeField] private SpinAction spinAction;
     [SerializeField] private BaseAction[] baseActionArray;
 
-    private int actionPoints = 2;
+    private int actionPoints = ACTION_POINTS_MAX;
 
     private LevelGrid levelGrid;
+
+    private TurnSystem turnSystem;
 
     private GridPosition gridPosition;
 
     [Inject]
-    private void Construct(LevelGrid levelGrid)
+    private void Construct(LevelGrid levelGrid, TurnSystem turnSystem)
     {
         this.levelGrid = levelGrid;
+        this.turnSystem = turnSystem;
     }
 
     private void Start()
     {
         gridPosition = levelGrid.GetGridPosition(transform.position);
         levelGrid.AddUnitAtGridPosition(gridPosition, this);
+
+        turnSystem.OnTurnChanged += TurnSystem_OnTurnChanged;
     }
 
     private void Update()
@@ -74,10 +84,19 @@ public class Unit : MonoBehaviour
     private void SpendActionPoints(int amount)
     {
         actionPoints -= amount;
+
+        OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public int GetActionPoints()
     {
         return actionPoints;
+    }
+
+    private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
+    {
+        actionPoints = ACTION_POINTS_MAX;
+
+        OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
     }
 }
