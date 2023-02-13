@@ -18,15 +18,18 @@ public class UnitActionSystem : MonoBehaviour
 
     private LevelGrid levelGrid;
 
+    private TurnSystem turnSystem;
+
     private BaseAction selectedAction;
 
     private bool isBusy;
 
     [Inject]
-    private void Construct(MouseWorld mouseWorld, LevelGrid levelGrid)
+    private void Construct(MouseWorld mouseWorld, LevelGrid levelGrid, TurnSystem turnSystem)
     {
         this.mouseWorld = mouseWorld;
         this.levelGrid  = levelGrid;
+        this.turnSystem = turnSystem;
     }
 
     private void Start()
@@ -37,6 +40,11 @@ public class UnitActionSystem : MonoBehaviour
     private void Update()
     {
         if (isBusy)
+        {
+            return;
+        }
+
+        if (turnSystem.IsPlayerTurn() == false)
         {
             return;
         }
@@ -106,6 +114,12 @@ public class UnitActionSystem : MonoBehaviour
 
             if (unit == selectedUnit)
             {
+                return false;
+            }
+
+            if (unit.IsEnemy())
+            {
+                // enemy was selected
                 return false;
             }
 

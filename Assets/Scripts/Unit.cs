@@ -8,6 +8,8 @@ public class Unit : MonoBehaviour
 
     public static event EventHandler OnAnyActionPointsChanged;
 
+    [SerializeField] private bool isEnemy;
+
     [SerializeField] private MoveAction moveAction;
     [SerializeField] private SpinAction spinAction;
     [SerializeField] private BaseAction[] baseActionArray;
@@ -95,8 +97,17 @@ public class Unit : MonoBehaviour
 
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
     {
-        actionPoints = ACTION_POINTS_MAX;
+        if ((IsEnemy() && turnSystem.IsPlayerTurn() is false) ||
+            (IsEnemy() is false && turnSystem.IsPlayerTurn()))
+        {
+            actionPoints = ACTION_POINTS_MAX;
 
-        OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
+            OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
+        }
+    }
+    
+    public bool IsEnemy()
+    {
+        return isEnemy;
     }
 }
