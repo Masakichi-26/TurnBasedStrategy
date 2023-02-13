@@ -6,7 +6,7 @@ using VContainer;
 public class MoveAction : BaseAction
 {
     [SerializeField] private Animator unitAnimator;
-    [SerializeField] private int maxMoveDistance = 4;
+    [SerializeField] private int maxMoveDistance = 5;
 
     private Vector3 targetPosition;
     private LevelGrid levelGrid;
@@ -16,7 +16,7 @@ public class MoveAction : BaseAction
     {
         this.levelGrid = levelGrid;
     }
-    
+
     private void Awake()
     {
         targetPosition = transform.position;
@@ -42,8 +42,7 @@ public class MoveAction : BaseAction
         else
         {
             unitAnimator.SetBool("IsWalking", false);
-            isActive = false;
-            onActionComplete.Invoke();
+            ActionComplete();
         }
 
         float rotateSpeed = 10f;
@@ -52,9 +51,8 @@ public class MoveAction : BaseAction
 
     public override void TakeAction(GridPosition gridPosition, Action onComplete)
     {
-        onActionComplete = onComplete;
+        ActionStart(onComplete);
         this.targetPosition = levelGrid.GetWorldPosition(gridPosition);
-        isActive = true;
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
@@ -69,8 +67,14 @@ public class MoveAction : BaseAction
             {
                 GridPosition offsetGridPosition = new GridPosition(x, z);
                 GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
-                
+
                 if (levelGrid.IsValidGridPosition(testGridPosition) == false)
+                {
+                    continue;
+                }
+
+                int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
+                if (testDistance > maxMoveDistance)
                 {
                     continue;
                 }

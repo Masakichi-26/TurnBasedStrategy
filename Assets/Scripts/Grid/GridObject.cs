@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections.Generic;
 
 public class GridObject
@@ -9,7 +10,7 @@ public class GridObject
 
     public GridObject(GridSystem gridSystem, GridPosition gridPosition)
     {
-        this.gridSystem   = gridSystem;
+        this.gridSystem = gridSystem;
         this.gridPosition = gridPosition;
     }
 
@@ -40,6 +41,16 @@ public class GridObject
 
     public bool HasAnyUnit()
     {
-        return unitList.Count > 0;
+        return unitList.Any();
+    }
+
+    public Unit GetUnit()
+    {
+        if (HasAnyUnit())
+        {
+            return unitList.First();
+        }
+
+        return null;
     }
 }
