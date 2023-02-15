@@ -5,7 +5,9 @@ using VContainer;
 
 public class MoveAction : BaseAction
 {
-    [SerializeField] private Animator unitAnimator;
+    public event EventHandler OnStartMoving;
+    public event EventHandler OnStopMoving;
+
     [SerializeField] private int maxMoveDistance = 5;
 
     private Vector3 targetPosition;
@@ -36,12 +38,10 @@ public class MoveAction : BaseAction
         {
             float moveSpeed = 6f;
             transform.position += direction * moveSpeed * Time.deltaTime;
-
-            unitAnimator.SetBool("IsWalking", true);
         }
         else
         {
-            unitAnimator.SetBool("IsWalking", false);
+            OnStopMoving?.Invoke(this, EventArgs.Empty);
             ActionComplete();
         }
 
@@ -53,6 +53,8 @@ public class MoveAction : BaseAction
     {
         ActionStart(onComplete);
         this.targetPosition = levelGrid.GetWorldPosition(gridPosition);
+
+        OnStartMoving?.Invoke(this, EventArgs.Empty);
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
