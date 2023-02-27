@@ -10,6 +10,8 @@ public class Unit : MonoBehaviour
 
     [SerializeField] private bool isEnemy;
 
+
+    [SerializeField] private HealthSystem healthSystem;
     [SerializeField] private MoveAction moveAction;
     [SerializeField] private SpinAction spinAction;
     [SerializeField] private BaseAction[] baseActionArray;
@@ -21,6 +23,7 @@ public class Unit : MonoBehaviour
     private TurnSystem turnSystem;
 
     private GridPosition gridPosition;
+
 
     [Inject]
     private void Construct(LevelGrid levelGrid, TurnSystem turnSystem)
@@ -35,6 +38,7 @@ public class Unit : MonoBehaviour
         levelGrid.AddUnitAtGridPosition(gridPosition, this);
 
         turnSystem.OnTurnChanged += TurnSystem_OnTurnChanged;
+        healthSystem.OnDead += HealthSystem_OnDead;
     }
 
     private void Update()
@@ -116,8 +120,14 @@ public class Unit : MonoBehaviour
         return isEnemy;
     }
 
-    public void Damage()
+    public void Damage(int damageAmount)
     {
-        Debug.Log(transform + " damaged");
+        healthSystem.Damage(damageAmount);
+    }
+
+    private void HealthSystem_OnDead(object sender, EventArgs e)
+    {
+        levelGrid.RemoveUnitAtGridPosition(gridPosition, this);
+        Destroy(gameObject);
     }
 }

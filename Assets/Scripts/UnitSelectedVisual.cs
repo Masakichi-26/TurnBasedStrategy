@@ -20,8 +20,6 @@ public class UnitSelectedVisual : MonoBehaviour
 
     private void Start()
     {
-        // unitActionSystem.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
-
         UpdateVisual();
     }
 
@@ -34,5 +32,10 @@ public class UnitSelectedVisual : MonoBehaviour
     {
         var selectedUnit = unitActionSystem.GetSelectedUnit();
         meshRenderer.enabled = selectedUnit == unit;
+    }
+
+    private void OnDestroy()
+    {
+        this.unitActionSystem.OnSelectedUnitChanged -= UnitActionSystem_OnSelectedUnitChanged;
     }
 }
