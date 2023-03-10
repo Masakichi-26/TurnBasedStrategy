@@ -459,6 +459,7 @@ MonoBehaviour:
   healthSystem: {fileID: 8469006075063171410}
   moveAction: {fileID: 9147219470036866006}
   spinAction: {fileID: 820886982490712017}
+  shootAction: {fileID: 9193927240695473052}
   baseActionArray:
   - {fileID: 9147219470036866006}
   - {fileID: 820886982490712017}

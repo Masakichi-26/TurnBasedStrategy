@@ -16,6 +16,7 @@ public class Unit : MonoBehaviour
     [SerializeField] private HealthSystem healthSystem;
     [SerializeField] private MoveAction moveAction;
     [SerializeField] private SpinAction spinAction;
+    [SerializeField] private ShootAction shootAction;
     [SerializeField] private BaseAction[] baseActionArray;
 
     private int actionPoints = ACTION_POINTS_MAX;
@@ -64,6 +65,11 @@ public class Unit : MonoBehaviour
     public SpinAction GetSpinAction()
     {
         return spinAction;
+    }
+
+    public ShootAction GetShootAction()
+    {
+        return shootAction;
     }
 
     public GridPosition GetGridPosition()
@@ -135,5 +141,10 @@ public class Unit : MonoBehaviour
         levelGrid.RemoveUnitAtGridPosition(gridPosition, this);
         Destroy(gameObject);
         OnAnyUnitDead?.Invoke(this, EventArgs.Empty);
+    }
+
+    public float GetHealthNormalized()
+    {
+        return healthSystem.GetHealthNormalized();
     }
 }
