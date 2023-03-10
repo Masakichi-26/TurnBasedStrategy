@@ -28,7 +28,7 @@ public class UnitActionSystem : MonoBehaviour
     private void Construct(MouseWorld mouseWorld, LevelGrid levelGrid, TurnSystem turnSystem)
     {
         this.mouseWorld = mouseWorld;
-        this.levelGrid  = levelGrid;
+        this.levelGrid = levelGrid;
         this.turnSystem = turnSystem;
     }
 
@@ -77,7 +77,7 @@ public class UnitActionSystem : MonoBehaviour
             {
                 return;
             }
-            
+
             SetBusy();
             selectedAction.TakeAction(mouseGridPosition, ClearBusy);
 
@@ -130,7 +130,7 @@ public class UnitActionSystem : MonoBehaviour
         return false;
     }
 
-    private void SetSelectedUnit(Unit unit)
+    public void SetSelectedUnit(Unit unit)
     {
         selectedUnit = unit;
         SetSelectedAction(unit.GetMoveAction());

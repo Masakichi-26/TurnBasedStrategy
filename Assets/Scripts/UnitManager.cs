@@ -1,12 +1,22 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using VContainer;
 
 public class UnitManager : MonoBehaviour
 {
     private List<Unit> unitList = new List<Unit>();
     private List<Unit> friendlyUnitList = new List<Unit>();
     private List<Unit> enemyUnitList = new List<Unit>();
+
+    private UnitActionSystem unitActionSystem;
+
+    [Inject]
+    private void Construct(UnitActionSystem unitActionSystem)
+    {
+        this.unitActionSystem = unitActionSystem;
+    }
 
     private void Start()
     {
@@ -43,6 +53,10 @@ public class UnitManager : MonoBehaviour
         else
         {
             friendlyUnitList.Remove(unit);
+            if (unitActionSystem.GetSelectedUnit() == unit && friendlyUnitList.Any())
+            {
+                unitActionSystem.SetSelectedUnit(friendlyUnitList[0]);
+            }
         }
     }
 
