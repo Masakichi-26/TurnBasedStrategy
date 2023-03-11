@@ -14,9 +14,6 @@ public class Unit : MonoBehaviour
 
 
     [SerializeField] private HealthSystem healthSystem;
-    [SerializeField] private MoveAction moveAction;
-    [SerializeField] private SpinAction spinAction;
-    [SerializeField] private ShootAction shootAction;
     [SerializeField] private BaseAction[] baseActionArray;
 
     private int actionPoints = ACTION_POINTS_MAX;
@@ -57,19 +54,17 @@ public class Unit : MonoBehaviour
         }
     }
 
-    public MoveAction GetMoveAction()
+    public T GetAction<T>() where T : BaseAction
     {
-        return moveAction;
-    }
+        foreach (var action in baseActionArray)
+        {
+            if (action is T)
+            {
+                return (T)action;
+            }
+        }
 
-    public SpinAction GetSpinAction()
-    {
-        return spinAction;
-    }
-
-    public ShootAction GetShootAction()
-    {
-        return shootAction;
+        return null;
     }
 
     public GridPosition GetGridPosition()
