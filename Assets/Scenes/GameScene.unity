@@ -263,6 +263,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 162880342}
+  - component: {fileID: 162880343}
   m_Layer: 0
   m_Name: Testing
   m_TagString: Untagged
@@ -285,6 +286,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &162880343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 162880340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17246d5edeed38d4faa44e28697ef9b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridDebugObjectPrefab: {fileID: 0}
+  unit: {fileID: 0}
 --- !u!1 &187676008
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,12 +342,14 @@ MonoBehaviour:
   - {fileID: 839484399}
   - {fileID: 880600329}
   - {fileID: 1872130034}
+  - {fileID: 162880340}
   mouseWorld: {fileID: 58726744}
   unitActionSystem: {fileID: 266761112}
   levelGrid: {fileID: 610382934}
   gridSystemVisual: {fileID: 530128148}
   turnSystem: {fileID: 619242170}
   unitManager: {fileID: 633276014}
+  pathfinding: {fileID: 837362826}
 --- !u!4 &187676010
 Transform:
   m_ObjectHideFlags: 0

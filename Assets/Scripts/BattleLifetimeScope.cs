@@ -10,6 +10,7 @@ public class BattleLifetimeScope : LifetimeScope
     [SerializeField] private GridSystemVisual gridSystemVisual;
     [SerializeField] private TurnSystem turnSystem;
     [SerializeField] private UnitManager unitManager;
+    [SerializeField] private Pathfinding pathfinding;
 
     protected override void Configure(IContainerBuilder builder)
     {
@@ -19,5 +20,6 @@ public class BattleLifetimeScope : LifetimeScope
         builder.RegisterComponent(gridSystemVisual);
         builder.RegisterComponent(turnSystem);
         builder.RegisterComponent(unitManager);
+        builder.RegisterComponent(pathfinding);
     }
 }
