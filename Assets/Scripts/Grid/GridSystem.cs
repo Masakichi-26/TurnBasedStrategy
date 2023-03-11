@@ -1,25 +1,27 @@
+using System;
 using UnityEngine;
 
-public class GridSystem
+public class GridSystem<TGridObject>
 {
     private int width;
     private int height;
     private float cellSize;
-    private GridObject[,] gridObjectArray;
+    private TGridObject[,] gridObjectArray;
 
-    public GridSystem(int width, int height, float cellSize)
+    public GridSystem(int width, int height, float cellSize,
+        Func<GridSystem<TGridObject>, GridPosition, TGridObject> createGridObject)
     {
-        this.width    = width;
-        this.height   = height;
+        this.width = width;
+        this.height = height;
         this.cellSize = cellSize;
 
-        gridObjectArray = new GridObject[width, height];
+        gridObjectArray = new TGridObject[width, height];
         for (int x = 0; x < width; x++)
         {
             for (int z = 0; z < height; z++)
             {
                 GridPosition gridPosition = new GridPosition(x, z);
-                gridObjectArray[x, z] = new GridObject(this, gridPosition);
+                gridObjectArray[x, z] = createGridObject(this, gridPosition);
             }
         }
     }
@@ -47,19 +49,19 @@ public class GridSystem
                 // Quaternion.identity means no rotation
                 Transform debugTransform = GameObject.Instantiate(debugPrefab, GetWorldPosition(gridPosition), Quaternion.identity);
                 GridDebugObject gridDebugObject = debugTransform.GetComponent<GridDebugObject>();
-                gridDebugObject.SetGridObject(GetGridObject(gridPosition));
+                gridDebugObject.SetGridObject(GetGridObject(gridPosition) as GridObject);
             }
         }
     }
 
-    public GridObject GetGridObject(GridPosition gridPosition)
+    public TGridObject GetGridObject(GridPosition gridPosition)
     {
         return gridObjectArray[gridPosition.x, gridPosition.z];
     }
 
     public bool IsValidGridPosition(GridPosition gridPosition)
     {
-        return  gridPosition.x >= 0 &&
+        return gridPosition.x >= 0 &&
                 gridPosition.z >= 0 &&
                 gridPosition.x < width &&
                 gridPosition.z < height;
