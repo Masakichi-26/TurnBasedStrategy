@@ -9,6 +9,8 @@ public class PathNode
     // g + h
     private int fCost;
 
+    private bool isPassable = true;
+
     private PathNode cameFromPathNode;
 
     public PathNode(GridPosition pos)
@@ -69,5 +71,15 @@ public class PathNode
     public GridPosition GetGridPosition()
     {
         return gridPosition;
+    }
+
+    public bool IsPassable()
+    {
+        return isPassable;
+    }
+
+    public void SetIsPassable(bool isPassable)
+    {
+        this.isPassable = isPassable;
     }
 }

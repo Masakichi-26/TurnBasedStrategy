@@ -1,20 +1,40 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using VContainer;
 
 public class LevelGrid : MonoBehaviour
 {
     public event EventHandler OnAnyUnitMovedGridPosition;
 
     [SerializeField] private Transform gridDebugObjectPrefab;
+    [SerializeField] private int width;
+    [SerializeField] private int height;
+    [SerializeField] private float cellSize;
 
+    // private Pathfinding pathfinding;
     private GridSystem<GridObject> gridSystem;
+
+    public int Width => width;
+    public int Height => height;
+    public float CellSize => cellSize;
+
+    // [Inject]
+    // private void Construct(Pathfinding pathfinding)
+    // {
+    //     this.pathfinding = pathfinding;
+    // }
 
     private void Awake()
     {
-        gridSystem = new GridSystem<GridObject>(10, 10, 2f,
+        gridSystem = new GridSystem<GridObject>(width, height, cellSize,
             (GridSystem<GridObject> g, GridPosition pos) => new GridObject(g, pos));
         // gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
+    }
+
+    private void Start()
+    {
+        // pathfinding.Setup(width, height, cellSize);
     }
 
     public void AddUnitAtGridPosition(GridPosition gridPosition, Unit unit)

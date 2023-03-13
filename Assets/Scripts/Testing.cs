@@ -48,7 +48,7 @@ public class Testing : MonoBehaviour
                 Debug.DrawLine(
                     levelGrid.GetWorldPosition(gridPositionList[i]),
                     levelGrid.GetWorldPosition(gridPositionList[i + 1]),
-                    Color.white,
+                    Color.red,
                     10f
                 );
             }
