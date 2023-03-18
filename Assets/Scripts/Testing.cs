@@ -39,7 +39,7 @@ public class Testing : MonoBehaviour
             Debug.Log("T key pressed");
 
             GridPosition mouseGridPosition = levelGrid.GetGridPosition(mouseWorld.GetPosition());
-            GridPosition startGridPosition = new GridPosition(0, 0);
+            GridPosition startGridPosition = new GridPosition(2, 0);
 
             var gridPositionList = pathfinding.FindPath(startGridPosition, mouseGridPosition);
 
