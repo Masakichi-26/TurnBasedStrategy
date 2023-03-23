@@ -15,14 +15,18 @@ public class Testing : MonoBehaviour
 
     private Pathfinding pathfinding;
 
+    private ScreenShake screenShake;
+
+
     [Inject]
     private void Construct(MouseWorld mouseWorld, GridSystemVisual gridSystemVisual,
-        LevelGrid levelGrid, Pathfinding pathfinding)
+        LevelGrid levelGrid, Pathfinding pathfinding, ScreenShake screenShake)
     {
         this.mouseWorld = mouseWorld;
         this.gridSystemVisual = gridSystemVisual;
         this.levelGrid = levelGrid;
         this.pathfinding = pathfinding;
+        this.screenShake = screenShake;
 
         Debug.Log("injecting into Testing");
     }
@@ -37,6 +41,8 @@ public class Testing : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.T))
         {
             // PathfindingDebug();
+
+            // ScreenShake();
         }
     }
 
@@ -58,5 +64,10 @@ public class Testing : MonoBehaviour
                 10f
             );
         }
+    }
+
+    private void ScreenShake()
+    {
+        screenShake.Shake(5f);
     }
 }
