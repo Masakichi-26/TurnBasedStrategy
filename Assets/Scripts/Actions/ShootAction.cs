@@ -20,6 +20,8 @@ public class ShootAction : BaseAction
         CoolOff,
     }
 
+    [SerializeField] private LayerMask obstaclesLayerMask;
+
     private State state;
     private int maxShootDistance = 7;
     private float stateTimer;
@@ -144,10 +146,24 @@ public class ShootAction : BaseAction
                 }
 
                 Unit targetUnit = levelGrid.GetUnitAtGridPosition(testGridPosition);
-
                 if (targetUnit.IsEnemy() == unit.IsEnemy())
                 {
                     // both units of same affiliation
+                    continue;
+                }
+
+                Vector3 unitWorldPosition = levelGrid.GetWorldPosition(unitGridPosition);
+                Vector3 shootDirection = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
+                
+                float unitShoulderHeight = 1.7f;
+                if (Physics.Raycast(
+                    unitWorldPosition + Vector3.up * unitShoulderHeight,
+                    shootDirection,
+                    Vector3.Distance(unit.GetWorldPosition(), targetUnit.GetWorldPosition()),
+                    obstaclesLayerMask
+                ))
+                {
+                    // blocked by an obstacle
                     continue;
                 }
 

@@ -36,22 +36,27 @@ public class Testing : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            Debug.Log("T key pressed");
+            // PathfindingDebug();
+        }
+    }
 
-            GridPosition mouseGridPosition = levelGrid.GetGridPosition(mouseWorld.GetPosition());
-            GridPosition startGridPosition = new GridPosition(2, 0);
+    private void PathfindingDebug()
+    {
+        Debug.Log("T key pressed");
 
-            var gridPositionList = pathfinding.FindPath(startGridPosition, mouseGridPosition);
+        GridPosition mouseGridPosition = levelGrid.GetGridPosition(mouseWorld.GetPosition());
+        GridPosition startGridPosition = new GridPosition(2, 0);
 
-            for (int i = 0; i < gridPositionList.Count - 1; i++)
-            {
-                Debug.DrawLine(
-                    levelGrid.GetWorldPosition(gridPositionList[i]),
-                    levelGrid.GetWorldPosition(gridPositionList[i + 1]),
-                    Color.red,
-                    10f
-                );
-            }
+        var gridPositionList = pathfinding.FindPath(startGridPosition, mouseGridPosition, out int pathLength);
+
+        for (int i = 0; i < gridPositionList.Count - 1; i++)
+        {
+            Debug.DrawLine(
+                levelGrid.GetWorldPosition(gridPositionList[i]),
+                levelGrid.GetWorldPosition(gridPositionList[i + 1]),
+                Color.red,
+                10f
+            );
         }
     }
 }

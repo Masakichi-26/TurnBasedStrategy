@@ -457,9 +457,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnemy: 0
   healthSystem: {fileID: 8469006075063171410}
-  moveAction: {fileID: 9147219470036866006}
-  spinAction: {fileID: 820886982490712017}
-  shootAction: {fileID: 9193927240695473052}
   baseActionArray:
   - {fileID: 9147219470036866006}
   - {fileID: 820886982490712017}
@@ -517,6 +514,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unit: {fileID: 4424284702060427711}
+  obstaclesLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &3273475721631648260
 MonoBehaviour:
   m_ObjectHideFlags: 0
