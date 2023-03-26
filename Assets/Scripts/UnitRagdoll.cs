@@ -34,8 +34,9 @@ public class UnitRagdoll : MonoBehaviour
             if (child.TryGetComponent<Rigidbody>(out Rigidbody childRigidBody))
             {
                 childRigidBody.AddExplosionForce(explosionForce, explostionPosition, explosionRange);
-                ApplyExplosionToRagdoll(child, explosionForce, explostionPosition, explosionRange);
             }
+            
+            ApplyExplosionToRagdoll(child, explosionForce, explostionPosition, explosionRange);
         }
     }
 }
