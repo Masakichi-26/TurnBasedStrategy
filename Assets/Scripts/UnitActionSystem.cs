@@ -14,22 +14,22 @@ public class UnitActionSystem : MonoBehaviour
 
     [SerializeField] private LayerMask unitLayerMask;
 
-    private MouseWorld mouseWorld;
-
-    private LevelGrid levelGrid;
-
-    private TurnSystem turnSystem;
-
     private BaseAction selectedAction;
-
     private bool isBusy;
 
+    private MouseWorld mouseWorld;
+    private LevelGrid levelGrid;
+    private TurnSystem turnSystem;
+    private InputManager inputManager;
+
     [Inject]
-    private void Construct(MouseWorld mouseWorld, LevelGrid levelGrid, TurnSystem turnSystem)
+    private void Construct(MouseWorld mouseWorld, LevelGrid levelGrid, TurnSystem turnSystem,
+        InputManager inputManager)
     {
         this.mouseWorld = mouseWorld;
         this.levelGrid = levelGrid;
         this.turnSystem = turnSystem;
+        this.inputManager = inputManager;
     }
 
     private void Start()
@@ -65,7 +65,7 @@ public class UnitActionSystem : MonoBehaviour
 
     private void HandleSelectedAction()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (inputManager.IsMouseButtonDown())
         {
             GridPosition mouseGridPosition = levelGrid.GetGridPosition(mouseWorld.GetPosition());
             if (selectedAction.IsValidActionGridPosition(mouseGridPosition) is false)
@@ -99,9 +99,9 @@ public class UnitActionSystem : MonoBehaviour
 
     private bool TryHandleUnitSelection()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (inputManager.IsMouseButtonDown())
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(inputManager.GetMouseScreenPosition());
             if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, unitLayerMask) == false)
             {
                 return false;

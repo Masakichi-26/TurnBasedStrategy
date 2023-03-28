@@ -12,6 +12,7 @@ public class BattleLifetimeScope : LifetimeScope
     [SerializeField] private UnitManager unitManager;
     [SerializeField] private Pathfinding pathfinding;
     [SerializeField] private ScreenShake screenShake;
+    [SerializeField] private InputManager inputManager;
 
     protected override void Configure(IContainerBuilder builder)
     {
@@ -23,5 +24,6 @@ public class BattleLifetimeScope : LifetimeScope
         builder.RegisterComponent(unitManager);
         builder.RegisterComponent(pathfinding);
         builder.RegisterComponent(screenShake);
+        builder.RegisterComponent(inputManager);
     }
 }
